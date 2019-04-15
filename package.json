@@ -4,14 +4,17 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "lint": "eslint ./src ./scripts",
+    "introspection": "node ./scripts/introspection.js"
   },
   "author": "nijynot <nijynot@gmail.com>",
   "license": "MIT",
   "dependencies": {
     "cids": "^0.6.0",
-    "filecoin-api-client": "^0.2.0",
-    "graphql": "^14.2.1",
-    "graphql-relay": "^0.6.0"
+    "graphql": "^14.2.1"
+  },
+  "devDependencies": {
+    "eslint": "^5.16.0"
   }
 }

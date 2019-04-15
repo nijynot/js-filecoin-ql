@@ -1,0 +1,79 @@
+"""Address is a single Filecoin address."""
+type Address {
+  address: String!
+  balance: Int!
+}
+
+type Block {
+  miner: String!
+  parents: [CID]!
+  parentWeight: Int
+  height: Int
+  nonce: Int
+  stateRoot: CID
+  proof: [Int]!
+  messages: [MeteredMessage]
+}
+
+"""CID is a self-describing content-addressed identifier."""
+type CID {
+  version: Int!
+  codec: String!
+  multibaseName: String!
+  multihash: String!
+}
+
+"""CID as a GraphQLScalarType."""
+scalar CIDScalar
+
+"""Message"""
+type Message {
+  to: String
+  from: String
+  nonce: Int
+  value: String
+  method: String
+  params: String
+}
+
+"""Wrapper type of Message that includes additional information."""
+type MeteredMessage {
+  message: Message
+  gasPrice: Int
+  gasLimit: Int
+  signature: String
+}
+
+"""Multiaddr is a standard way to represent addresses."""
+type Multiaddr {
+  multiaddr: String
+}
+
+"""Mutations that can be called from this schema."""
+type Mutation {
+  updateLogLevelMutation(input: UpdateLogLevelInput): String
+}
+
+type Query {
+  block(cid: CIDScalar!): Block!
+  chain(height: Int): [Block]
+  defaultAddress: Address
+  wallet: [Address]
+  bootstrap: [Multiaddr]
+  version: String
+  peer(id: String): [Multiaddr]
+  log: [String]
+  stats: Stats
+}
+
+"""Stats shows bandwidth usage statistics."""
+type Stats {
+  totalIn: Int
+  totalOut: Int
+  rateIn: Int
+  rateOut: Int
+}
+
+input UpdateLogLevelInput {
+  level: String
+}
